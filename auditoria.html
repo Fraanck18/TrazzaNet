@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trazza Net - Módulo de Auditoría</title>
+    <meta name="description" content="Simulación y análisis de lotes con certificaciones internacionales">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/auditoria.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                    <path d="M2 17l10 5 10-5" />
+                    <path d="M2 12l10 5 10-5" />
+                </svg>
+                <h1>Trazza<span class="brand-accent">Net</span></h1>
+            </div>
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
+                <a href="carga.html" class="nav-link">Cargar Datos</a>
+                <a href="certificaciones.html" class="nav-link">Certificaciones</a>
+                <a href="auditoria.html" class="nav-link active">Auditoría</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="audit-container">
+        <!-- Header -->
+        <header class="audit-header">
+            <div>
+                <h2 class="page-title">Módulo de Auditoría</h2>
+                <p class="page-subtitle">Simulación y análisis de lotes con certificaciones internacionales</p>
+            </div>
+        </header>
+
+        <!-- Loading State -->
+        <div class="loading-overlay hidden" id="loadingOverlay">
+            <div class="loading-spinner"></div>
+            <p>Cargando lotes...</p>
+        </div>
+
+        <!-- Certification Selection Section -->
+        <section class="certification-section">
+            <div class="section-header">
+                <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <circle cx="12" cy="12" r="3" />
+                    <path
+                        d="M12 1v6m0 6v6M5.64 5.64l4.24 4.24m4.24 4.24l4.24 4.24M1 12h6m6 0h6M5.64 18.36l4.24-4.24m4.24-4.24l4.24-4.24" />
+                </svg>
+                <h3>Seleccione el Tipo de Certificación</h3>
+            </div>
+
+            <div class="certification-grid">
+                <!-- GLOBALG.A.P. Card -->
+                <div class="cert-card" data-cert="globalgap">
+                    <div class="cert-header">
+                        <h4 class="cert-name">GLOBALG.A.P.</h4>
+                        <button class="info-btn" title="Más información">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M12 16v-4M12 8h.01" />
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="cert-description">Estándar internacional para buenas prácticas agrícolas</p>
+                    <div class="cert-stats">
+                        <div class="stat-item hallazgos">
+                            <span class="stat-indicator"></span>
+                            <span class="stat-label">Hallazgos:</span>
+                            <span class="stat-value">5%</span>
+                        </div>
+                        <div class="stat-item descarte">
+                            <span class="stat-indicator"></span>
+                            <span class="stat-label">Descarte:</span>
+                            <span class="stat-value">10%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ISO 22000 Card -->
+                <div class="cert-card" data-cert="iso22000">
+                    <div class="cert-header">
+                        <h4 class="cert-name">ISO 22000</h4>
+                        <button class="info-btn" title="Más información">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M12 16v-4M12 8h.01" />
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="cert-description">Gestión inocuidad alimentaria de riesgo</p>
+                    <div class="cert-stats">
+                        <div class="stat-item hallazgos">
+                            <span class="stat-indicator"></span>
+                            <span class="stat-label">Hallazgos:</span>
+                            <span class="stat-value">3%</span>
+                        </div>
+                        <div class="stat-item descarte">
+                            <span class="stat-indicator"></span>
+                            <span class="stat-label">Descarte:</span>
+                            <span class="stat-value">20%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BRCGS Card -->
+                <div class="cert-card" data-cert="brcgs">
+                    <div class="cert-header">
+                        <h4 class="cert-name">BRCGS</h4>
+                        <button class="info-btn" title="Más información">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M12 16v-4M12 8h.01" />
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="cert-description">British Retail Consortium Global Standard</p>
+                    <div class="cert-stats">
+                        <div class="stat-item hallazgos">
+                            <span class="stat-indicator"></span>
+                            <span class="stat-label">Hallazgos:</span>
+                            <span class="stat-value">2%</span>
+                        </div>
+                        <div class="stat-item descarte">
+                            <span class="stat-indicator"></span>
+                            <span class="stat-label">Descarte:</span>
+                            <span class="stat-value">15%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Orgánico Card -->
+                <div class="cert-card" data-cert="organico">
+                    <div class="cert-header">
+                        <h4 class="cert-name">Orgánico</h4>
+                        <button class="info-btn" title="Más información">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M12 16v-4M12 8h.01" />
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="cert-description">Certificación de productos orgánicos</p>
+                    <div class="cert-stats">
+                        <div class="stat-item hallazgos">
+                            <span class="stat-indicator"></span>
+                            <span class="stat-label">Hallazgos:</span>
+                            <span class="stat-value">1%</span>
+                        </div>
+                        <div class="stat-item descarte">
+                            <span class="stat-indicator"></span>
+                            <span class="stat-label">Descarte:</span>
+                            <span class="stat-value">5%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Action Button -->
+        <section class="action-section">
+            <button class="start-simulation-btn" id="startSimulationBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+                Iniciar Simulación
+            </button>
+            <p class="action-hint">Se cargarán todos los lotes registrados en la base de datos para auditoría</p>
+        </section>
+
+        <!-- Batch List Section (Initially Hidden) -->
+        <section class="batch-list-section hidden" id="batchListSection">
+            <div class="section-header">
+                <h3>Lotes Disponibles para Auditoría</h3>
+                <span class="batch-count" id="batchCount">0 lotes</span>
+            </div>
+            <div class="batch-grid" id="batchGrid">
+                <!-- Batches will be populated by JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="audit-footer">
+        <p>&copy; 2025 Trazza Net - Sistema de Trazabilidad Agrícola</p>
+        <p>Última actualización: <span id="lastUpdate">-</span></p>
+    </footer>
+
+    <script src="js/auditoria.js"></script>
+</body>
+
+</html>
