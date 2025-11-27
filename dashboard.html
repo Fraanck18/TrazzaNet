@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trazza Net - Dashboard de Trazabilidad</title>
+    <meta name="description" content="Dashboard de trazabilidad de lotes agrícolas con visualización de datos en tiempo real">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                    <path d="M2 17l10 5 10-5"/>
+                    <path d="M2 12l10 5 10-5"/>
+                </svg>
+                <h1>Trazza<span class="brand-accent">Net</span></h1>
+            </div>
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-link active">Dashboard</a>
+                <a href="carga.html" class="nav-link">Cargar Datos</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div>
+                <h2 class="page-title">Dashboard de Trazabilidad</h2>
+                <p class="page-subtitle">Monitoreo en tiempo real de lotes agrícolas</p>
+            </div>
+            <button class="refresh-btn" id="refreshBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+                </svg>
+                Actualizar
+            </button>
+        </header>
+
+        <!-- Loading State -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="loading-spinner"></div>
+            <p>Cargando datos...</p>
+        </div>
+
+        <!-- Statistics Cards -->
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon green">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M20 7h-9M14 17H5M21 12H8"/>
+                        <circle cx="4" cy="7" r="2"/>
+                        <circle cx="17" cy="12" r="2"/>
+                        <circle cx="11" cy="17" r="2"/>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <p class="stat-label">Total de Lotes</p>
+                    <h3 class="stat-value" id="totalLotes">0</h3>
+                    <p class="stat-change positive" id="lotesChange">+0% vs mes anterior</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon blue">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <p class="stat-label">Peso Promedio</p>
+                    <h3 class="stat-value" id="avgWeight">0 kg</h3>
+                    <p class="stat-change" id="weightChange">Por lote</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon purple">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                        <polyline points="22 4 12 14.01 9 11.01"/>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <p class="stat-label">Calidad Aprobada</p>
+                    <h3 class="stat-value" id="qualityPercent">0%</h3>
+                    <p class="stat-change positive" id="qualityChange">Estado OK</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon orange">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <p class="stat-label">Temperatura Promedio</p>
+                    <h3 class="stat-value" id="avgTemp">0°C</h3>
+                    <p class="stat-change" id="tempChange">Condiciones óptimas</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts Grid -->
+        <section class="charts-grid">
+            <!-- Batches by Farm -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3>Lotes por Finca</h3>
+                    <span class="chart-badge">Distribución</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="farmChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Quality Distribution -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3>Estado de Calidad</h3>
+                    <span class="chart-badge">Porcentaje</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="qualityChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Weight Trend -->
+            <div class="chart-card wide">
+                <div class="chart-header">
+                    <h3>Tendencia de Peso por Lote</h3>
+                    <span class="chart-badge">Histórico</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="weightChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Temperature Monitoring -->
+            <div class="chart-card wide">
+                <div class="chart-header">
+                    <h3>Monitoreo de Temperatura</h3>
+                    <span class="chart-badge">°C</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="tempChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent Batches Table -->
+        <section class="table-section">
+            <div class="table-header">
+                <h3>Lotes Recientes</h3>
+                <div class="table-actions">
+                    <input type="text" class="search-input" id="searchInput" placeholder="Buscar lote...">
+                </div>
+            </div>
+            <div class="table-container">
+                <table class="data-table" id="batchesTable">
+                    <thead>
+                        <tr>
+                            <th>Lote ID</th>
+                            <th>Fecha Cosecha</th>
+                            <th>Finca</th>
+                            <th>Variedad</th>
+                            <th>Peso (kg)</th>
+                            <th>Frutos</th>
+                            <th>Calibre</th>
+                            <th>Temp (°C)</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="batchesTableBody">
+                        <!-- Data will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="dashboard-footer">
+        <p>&copy; 2025 Trazza Net - Sistema de Trazabilidad Agrícola</p>
+        <p>Última actualización: <span id="lastUpdate">-</span></p>
+    </footer>
+
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
