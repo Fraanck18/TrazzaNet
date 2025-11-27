@@ -137,6 +137,146 @@ app.get('/api/dashboard-stats', async (req, res) => {
     }
 });
 
+// Audit endpoint - Get batch for audit
+app.get('/api/audit/:loteId', async (req, res) => {
+    try {
+        const { loteId } = req.params;
+
+        // Find the batch
+        const batch = await lotesCollection.findOne({ LOTE_ID: loteId });
+
+        if (!batch) {
+            return res.status(404).json({
+                success: false,
+                error: 'Lote no encontrado'
+            });
+        }
+
+        // Generate blockchain hash (simulated)
+        const crypto = require('crypto');
+        const hashData = JSON.stringify({
+            loteId: batch.LOTE_ID,
+            fecha: batch.FECHA_COSECHA,
+            finca: batch.FINCA
+        });
+        const blockchainHash = crypto.createHash('sha256').update(hashData).digest('hex');
+
+        // Generate mock blockchain trail
+        const blockchainTrail = [];
+        for (let i = 0; i < 5; i++) {
+            const blockData = `${batch.LOTE_ID}-block-${i}`;
+            const blockHash = crypto.createHash('sha256').update(blockData).digest('hex');
+            blockchainTrail.push({
+                blockNumber: i + 1,
+                timestamp: new Date(Date.now() - (i * 3600000)),
+                hash: blockHash
+            });
+        }
+
+        // Generate audit log
+        const auditLog = [
+            {
+                timestamp: new Date(batch.FECHA_COSECHA),
+                action: 'Registro Inicial',
+                field: 'LOTE_ID',
+                value: batch.LOTE_ID,
+                status: 'Verificado'
+            },
+            {
+                timestamp: new Date(new Date(batch.FECHA_COSECHA).getTime() + 1800000),
+                action: 'Actualización',
+                field: 'PESO_NETO_KG',
+                value: `${batch.PESO_NETO_KG} kg`,
+                status: 'Verificado'
+            },
+            {
+                timestamp: new Date(new Date(batch.FECHA_COSECHA).getTime() + 3600000),
+                action: 'Validación',
+                field: 'CALIDAD_STATUS',
+                value: batch.CALIDAD_STATUS || 'N/A',
+                status: 'Verificado'
+            },
+            {
+                timestamp: new Date(new Date(batch.FECHA_COSECHA).getTime() + 5400000),
+                action: 'Verificación',
+                field: 'TEMPERATURA_C',
+                value: `${batch.TEMPERATURA_C}°C`,
+                status: 'Verificado'
+            },
+            {
+                timestamp: new Date(new Date(batch.FECHA_COSECHA).getTime() + 7200000),
+                action: 'Certificación',
+                field: 'BLOCKCHAIN_HASH',
+                value: 'Generado',
+                status: 'Verificado'
+            }
+        ];
+
+        res.json({
+            success: true,
+            audit: {
+                batch,
+                verified: true,
+                blockchainHash,
+                integrityScore: 100,
+                timestamp: new Date(),
+                blockchainTrail: blockchainTrail.reverse(),
+                auditLog
+            }
+        });
+    } catch (error) {
+        console.error('Error performing audit:', error);
+        res.status(500).json({
+            success: false,
+            error: 'Error al realizar la auditoría'
+        });
+    }
+});
+
+// Upload endpoint - Batch insert
+app.post('/api/upload', async (req, res) => {
+    try {
+        const data = req.body;
+
+        if (!Array.isArray(data) || data.length === 0) {
+            return res.status(400).json({
+                success: false,
+                error: 'Datos inválidos. Se espera un array de registros.'
+            });
+        }
+
+        // Optional: Process data (e.g., convert dates)
+        const processedData = data.map(item => {
+            // Clone item to avoid mutating original
+            const newItem = { ...item };
+
+            // Try to convert FECHA_COSECHA to Date object if it exists
+            if (newItem.FECHA_COSECHA) {
+                const date = new Date(newItem.FECHA_COSECHA);
+                if (!isNaN(date.getTime())) {
+                    newItem.FECHA_COSECHA = date.toISOString().split('T')[0]; // Store as YYYY-MM-DD string or Date object depending on preference. 
+                    // Based on existing code using new Date(lote.FECHA_COSECHA), string is likely fine, but let's keep it consistent.
+                }
+            }
+            return newItem;
+        });
+
+        const result = await lotesCollection.insertMany(processedData);
+
+        res.json({
+            success: true,
+            message: 'Datos subidos correctamente',
+            count: result.insertedCount
+        });
+    } catch (error) {
+        console.error('Error uploading data:', error);
+        res.status(500).json({
+            success: false,
+            error: 'Error al guardar los datos en la base de datos'
+        });
+    }
+});
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
     res.json({

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrazaNet - Módulo de Auditoría</title>
+    <meta name="description" content="Sistema de simulación de auditoría blockchain para trazabilidad agrícola">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/simulacion_auditoria.css">
+</head>
+
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h1 class="sidebar-brand">TrazaNet</h1>
+            <p class="sidebar-subtitle">Sistema de Auditoría Inteligente</p>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="sidebar-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <rect x="3" y="3" width="7" height="7" />
+                    <rect x="14" y="3" width="7" height="7" />
+                    <rect x="14" y="14" width="7" height="7" />
+                    <rect x="3" y="14" width="7" height="7" />
+                </svg>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="#" class="sidebar-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path
+                        d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                    <line x1="12" y1="22.08" x2="12" y2="12" />
+                </svg>
+                <span>Carga de Datos</span>
+            </a>
+
+            <a href="#" class="sidebar-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M20 7h-9M14 17H5M21 12H8" />
+                    <circle cx="4" cy="7" r="2" />
+                    <circle cx="17" cy="12" r="2" />
+                    <circle cx="11" cy="17" r="2" />
+                </svg>
+                <span>Trazabilidad</span>
+            </a>
+
+            <a href="simulacion_auditoria.html" class="sidebar-link active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>Auditoría</span>
+            </a>
+
+            <a href="certificaciones.html" class="sidebar-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                    <polyline points="10 9 9 9 8 9" />
+                </svg>
+                <span>Certificaciones</span>
+            </a>
+
+            <a href="#" class="sidebar-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                    <line x1="9" y1="9" x2="15" y2="15" />
+                    <line x1="15" y1="9" x2="9" y2="15" />
+                </svg>
+                <span>Blockchain</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <div class="user-avatar">UA</div>
+                <div class="user-details">
+                    <p class="user-name">Usuario Activo</p>
+                    <p class="user-role">user-1964225104683-slug@m</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="page-header">
+            <div>
+                <h1 class="page-title">Módulo de Auditoría</h1>
+                <p class="page-subtitle">Simulación y análisis de lotes con certificaciones internacionales</p>
+            </div>
+        </header>
+
+        <!-- Alert Message -->
+        <div class="alert-message" id="alertMessage" style="display: none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+            <span id="alertText">Error al cargar los lotes. Verifique su conexión con el servidor</span>
+        </div>
+
+        <!-- Certification Selection Section -->
+        <section class="certification-section">
+            <div class="section-header">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <h2>Seleccione el Tipo de Certificación</h2>
+            </div>
+
+            <div class="certification-grid">
+                <!-- GLOBALG.A.P. -->
+                <div class="certification-card" data-cert="globalgap">
+                    <div class="cert-header">
+                        <h3>GLOBALG.A.P.</h3>
+                        <button class="info-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                                <line x1="12" y1="17" x2="12.01" y2="17" />
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="cert-description">Estándar internacional para buenas prácticas agrícolas</p>
+                    <div class="cert-stats">
+                        <div class="cert-stat">
+                            <span class="stat-dot hallazgos"></span>
+                            <span>Hallazgos: 5%</span>
+                        </div>
+                        <div class="cert-stat">
+                            <span class="stat-dot descarte"></span>
+                            <span>Descarte: 10%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ISO 22000 -->
+                <div class="certification-card" data-cert="iso22000">
+                    <div class="cert-header">
+                        <h3>ISO 22000</h3>
+                        <button class="info-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                                <line x1="12" y1="17" x2="12.01" y2="17" />
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="cert-description">Gestión inocuidad alimentaria de riesgo</p>
+                    <div class="cert-stats">
+                        <div class="cert-stat">
+                            <span class="stat-dot hallazgos"></span>
+                            <span>Hallazgos: 3%</span>
+                        </div>
+                        <div class="cert-stat">
+                            <span class="stat-dot descarte"></span>
+                            <span>Descarte: 20%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BRCGS -->
+                <div class="certification-card" data-cert="brcgs">
+                    <div class="cert-header">
+                        <h3>BRCGS</h3>
+                        <button class="info-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                                <line x1="12" y1="17" x2="12.01" y2="17" />
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="cert-description">British Retail Consortium Global Standard</p>
+                    <div class="cert-stats">
+                        <div class="cert-stat">
+                            <span class="stat-dot hallazgos"></span>
+                            <span>Hallazgos: 2%</span>
+                        </div>
+                        <div class="cert-stat">
+                            <span class="stat-dot descarte"></span>
+                            <span>Descarte: 15%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Orgánico -->
+                <div class="certification-card" data-cert="organico">
+                    <div class="cert-header">
+                        <h3>Orgánico</h3>
+                        <button class="info-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                                <line x1="12" y1="17" x2="12.01" y2="17" />
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="cert-description">Certificación de productos orgánicos</p>
+                    <div class="cert-stats">
+                        <div class="cert-stat">
+                            <span class="stat-dot hallazgos"></span>
+                            <span>Hallazgos: 1%</span>
+                        </div>
+                        <div class="cert-stat">
+                            <span class="stat-dot descarte"></span>
+                            <span>Descarte: 5%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="selected-cert-info" id="selectedCertInfo" style="display: none;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <polyline points="20 6 9 17 4 12" />
+                </svg>
+                <span>Certificación seleccionada: <strong id="selectedCertName">ISO 22000</strong> (Hallazgos 5%,
+                    Descarte 20%)</span>
+            </div>
+        </section>
+
+        <!-- Ready to Audit Section -->
+        <section class="ready-section">
+            <div class="ready-content">
+                <h3>¿Listo para auditar?</h3>
+                <p>Inicia una simulación de auditoría sobre los lotes cargados</p>
+            </div>
+            <button class="start-simulation-btn" id="startSimulationBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+                Iniciar Simulación
+            </button>
+        </section>
+
+        <!-- Statistics Section -->
+        <section class="stats-section">
+            <div class="stat-box">
+                <div class="stat-icon purple">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path
+                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <p class="stat-label">LOTES PARA AUDITAR</p>
+                    <h3 class="stat-value" id="lotesAuditar">0</h3>
+                    <p class="stat-detail">Total en sistema</p>
+                </div>
+            </div>
+
+            <div class="stat-box">
+                <div class="stat-icon yellow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+                        <line x1="12" y1="9" x2="12" y2="13" />
+                        <line x1="12" y1="17" x2="12.01" y2="17" />
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <p class="stat-label">CON HALLAZGOS</p>
+                    <h3 class="stat-value" id="conHallazgos">0</h3>
+                    <p class="stat-detail">Requieren atención</p>
+                </div>
+            </div>
+
+            <div class="stat-box">
+                <div class="stat-icon red">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <polyline points="3 6 5 6 21 6" />
+                        <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" />
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <p class="stat-label">PARA DESCARTE</p>
+                    <h3 class="stat-value" id="paraDescarte">0</h3>
+                    <p class="stat-detail">No conformes</p>
+                </div>
+            </div>
+
+            <div class="stat-box">
+                <div class="stat-icon green">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+                        <polyline points="22 4 12 14.01 9 11.01" />
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <p class="stat-label">CONFORMIDAD</p>
+                    <h3 class="stat-value" id="conformidad">100%</h3>
+                    <p class="stat-detail">Nivel general</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="search-container">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <circle cx="11" cy="11" r="8" />
+                    <path d="m21 21-4.35-4.35" />
+                </svg>
+                <input type="text" id="searchInput" placeholder="Buscar por ID, archivo o fecha...">
+            </div>
+            <select class="filter-select" id="filterSelect">
+                <option value="all">Todos los estados</option>
+                <option value="conformes">Conformes</option>
+                <option value="hallazgos">Con hallazgos</option>
+                <option value="descarte">Para descarte</option>
+            </select>
+        </section>
+    </main>
+
+    <script src="js/simulacion_auditoria.js"></script>
+</body>
+
+</html>

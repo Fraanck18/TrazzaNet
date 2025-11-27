@@ -1,34 +1,39 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trazza Net - Dashboard de Trazabilidad</title>
-    <meta name="description" content="Dashboard de trazabilidad de lotes agrícolas con visualización de datos en tiempo real">
-    
+    <meta name="description"
+        content="Dashboard de trazabilidad de lotes agrícolas con visualización de datos en tiempo real">
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    
+
     <link rel="stylesheet" href="css/dashboard.css">
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-brand">
                 <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                    <path d="M2 17l10 5 10-5"/>
-                    <path d="M2 12l10 5 10-5"/>
+                    <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                    <path d="M2 17l10 5 10-5" />
+                    <path d="M2 12l10 5 10-5" />
                 </svg>
                 <h1>Trazza<span class="brand-accent">Net</span></h1>
             </div>
             <div class="nav-links">
                 <a href="dashboard.html" class="nav-link active">Dashboard</a>
                 <a href="carga.html" class="nav-link">Cargar Datos</a>
+                <a href="certificaciones.html" class="nav-link">Certificaciones</a>
+                <a href="simulacion_auditoria.html" class="nav-link">Auditoría</a>
             </div>
         </div>
     </nav>
@@ -43,7 +48,7 @@
             </div>
             <button class="refresh-btn" id="refreshBtn">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+                    <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" />
                 </svg>
                 Actualizar
             </button>
@@ -60,10 +65,10 @@
             <div class="stat-card">
                 <div class="stat-icon green">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path d="M20 7h-9M14 17H5M21 12H8"/>
-                        <circle cx="4" cy="7" r="2"/>
-                        <circle cx="17" cy="12" r="2"/>
-                        <circle cx="11" cy="17" r="2"/>
+                        <path d="M20 7h-9M14 17H5M21 12H8" />
+                        <circle cx="4" cy="7" r="2" />
+                        <circle cx="17" cy="12" r="2" />
+                        <circle cx="11" cy="17" r="2" />
                     </svg>
                 </div>
                 <div class="stat-content">
@@ -76,7 +81,7 @@
             <div class="stat-card">
                 <div class="stat-icon blue">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                     </svg>
                 </div>
                 <div class="stat-content">
@@ -89,8 +94,8 @@
             <div class="stat-card">
                 <div class="stat-icon purple">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                        <polyline points="22 4 12 14.01 9 11.01"/>
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                        <polyline points="22 4 12 14.01 9 11.01" />
                     </svg>
                 </div>
                 <div class="stat-content">
@@ -103,7 +108,7 @@
             <div class="stat-card">
                 <div class="stat-icon orange">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/>
+                        <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z" />
                     </svg>
                 </div>
                 <div class="stat-content">
@@ -200,4 +205,5 @@
 
     <script src="js/dashboard.js"></script>
 </body>
+
 </html>

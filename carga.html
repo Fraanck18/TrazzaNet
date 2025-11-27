@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trazza Net - Carga de Datos</title>
+    <meta name="description" content="Pantalla de carga de archivos CSV y JSON para Trazza Net">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/carga.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                    <path d="M2 17l10 5 10-5" />
+                    <path d="M2 12l10 5 10-5" />
+                </svg>
+                <h1>Trazza<span class="brand-accent">Net</span></h1>
+            </div>
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
+                <a href="carga.html" class="nav-link active">Cargar Datos</a>
+                <a href="certificaciones.html" class="nav-link">Certificaciones</a>
+                <a href="simulacion_auditoria.html" class="nav-link">Auditoría</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div>
+                <h2 class="page-title">Carga de Datos</h2>
+                <p class="page-subtitle">Sube archivos .CSV o .JSON para actualizar la base de datos</p>
+            </div>
+        </header>
+
+        <!-- Upload Section -->
+        <section class="upload-section">
+            <div class="upload-area" id="dropZone">
+                <div class="upload-content">
+                    <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="17 8 12 3 7 8" />
+                        <line x1="12" y1="3" x2="12" y2="15" />
+                    </svg>
+                    <h3>Arrastra y suelta tus archivos aquí</h3>
+                    <p>o</p>
+                    <button class="upload-btn" id="browseBtn">Explorar Archivos</button>
+                    <input type="file" id="fileInput" accept=".csv,.json" hidden>
+                    <p class="upload-hint">Soporta archivos .CSV y .JSON</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Preview Section (Hidden by default) -->
+        <section class="preview-section hidden" id="previewSection">
+            <div class="section-header">
+                <h3>Vista Previa de Datos</h3>
+                <div class="action-buttons">
+                    <button class="cancel-btn" id="cancelBtn">Cancelar</button>
+                    <button class="confirm-btn" id="uploadBtn">Subir a Base de Datos</button>
+                </div>
+            </div>
+
+            <div class="file-info" id="fileInfo">
+                <!-- File info will be inserted here -->
+            </div>
+
+            <div class="table-container">
+                <table class="data-table" id="previewTable">
+                    <thead>
+                        <!-- Headers will be inserted here -->
+                    </thead>
+                    <tbody id="previewBody">
+                        <!-- Data will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Status Messages -->
+        <div id="statusMessage" class="status-message hidden"></div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="dashboard-footer">
+        <p>&copy; 2025 Trazza Net - Sistema de Trazabilidad Agrícola</p>
+    </footer>
+
+    <script src="js/carga.js"></script>
+</body>
+
+</html>
