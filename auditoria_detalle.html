@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trazza Net - Detalle de Lote Auditado</title>
+    <meta name="description" content="Visualización detallada de un lote agrícola y su cumplimiento de auditoría.">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <!-- Chart.js Plugin: Chartjs-plugin-datalabels (Optional, but useful for context) -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
+    
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/auditoria_detalle.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                    <path d="M2 17l10 5 10-5" />
+                    <path d="M2 12l10 5 10-5" />
+                </svg>
+                <h1>Trazza<span class="brand-accent">Net</span></h1>
+            </div>
+            <div class="nav-links">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="carga.html">Carga</a>
+                <a href="auditoria.html" class="active">Auditoría</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <div class="dashboard-header">
+            <h2 class="page-title">Detalle de Auditoría - Lote <span id="loteIdTitle">-</span></h2>
+            <div class="header-actions">
+                <button class="back-btn" onclick="window.history.back()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                    Volver a Auditoría
+                </button>
+            </div>
+        </div>
+
+        <!-- Lote Detail Grid -->
+        <section class="detail-grid-section">
+            <div class="detail-card chart-card wide">
+                <h3 class="card-title">Análisis de Cumplimiento (Certificación <span id="certName">-</span>)</h3>
+                <div class="chart-container">
+                    <canvas id="complianceChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="detail-card info-card">
+                <h3 class="card-title">Información del Lote</h3>
+                <div class="lote-details" id="loteDetails">
+                    <!-- Data will be populated by JavaScript -->
+                    <div class="detail-item"><span class="detail-label">Fecha Cosecha:</span><span class="detail-value" id="detailFechaCosecha">-</span></div>
+                    <div class="detail-item"><span class="detail-label">Finca:</span><span class="detail-value" id="detailFinca">-</span></div>
+                    <div class="detail-item"><span class="detail-label">Variedad:</span><span class="detail-value" id="detailVariedad">-</span></div>
+                    <div class="detail-item"><span class="detail-label">Peso (kg):</span><span class="detail-value" id="detailPeso">-</span></div>
+                    <div class="detail-item"><span class="detail-label">Calidad Status:</span><span class="detail-value" id="detailCalidadStatus">-</span></div>
+                    <div class="detail-item"><span class="detail-label">Temperatura (°C):</span><span class="detail-value" id="detailTemp">-</span></div>
+                    <div class="detail-item"><span class="detail-label">Certificación Requerida:</span><span class="detail-value" id="detailCertificacion">-</span></div>
+                    <div class="detail-item"><span class="detail-label">Resultado Auditoría:</span><span class="detail-value" id="detailResultadoAuditoria">-</span></div>
+                </div>
+            </div>
+
+            <div class="detail-card log-card">
+                <h3 class="card-title">Detalle de Desvíos / Requisitos</h3>
+                <div class="deviation-log" id="deviationLog">
+                    <div class="log-item pass">✅ Trazabilidad completa (100% registros).</div>
+                    <div class="log-item fail">❌ Nivel de pesticida (P_A) detectado: 0.05 ppm (Límite GlobalGAP: 0.02 ppm).</div>
+                    <div class="log-item pass">✅ Registro de temperatura correcto (18°C).</div>
+                    <div class="log-item fail">❌ Falta la firma del supervisor de cosecha en el registro físico.</div>
+                    <!-- Detailed log entries will be inserted here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="dashboard-footer">
+        <p>&copy; 2025 Trazza Net - Sistema de Trazabilidad Agrícola</p>
+    </footer>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+        <p>Cargando detalles del lote...</p>
+    </div>
+
+    <script src="js/auditoria_detalle.js"></script>
+</body>
+
+</html>
