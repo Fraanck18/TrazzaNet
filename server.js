@@ -17,6 +17,7 @@ const client = new MongoClient(uri);
 
 let db;
 let lotesCollection;
+let usuariosCollection;
 
 // Connect to MongoDB
 async function connectToDatabase() {
@@ -25,6 +26,7 @@ async function connectToDatabase() {
         console.log('✅ Connected to MongoDB Atlas');
         db = client.db('trazzanet');
         lotesCollection = db.collection('Lotes');
+        usuariosCollection = db.collection('Usuarios');
     } catch (error) {
         console.error('❌ MongoDB connection error:', error);
         process.exit(1);
@@ -32,6 +34,48 @@ async function connectToDatabase() {
 }
 
 // API Routes
+
+// Login endpoint
+app.post('/api/login', async (req, res) => {
+    try {
+        const { ruc, usuario, password } = req.body;
+
+        if (!ruc || !usuario || !password) {
+            return res.status(400).json({
+                success: false,
+                error: 'Todos los campos son obligatorios'
+            });
+        }
+
+        const user = await usuariosCollection.findOne({
+            RUC: ruc,
+            usuario: usuario,
+            contraseña: password
+        });
+
+        if (user) {
+            res.json({
+                success: true,
+                message: 'Login exitoso',
+                user: {
+                    usuario: user.usuario,
+                    ruc: user.RUC
+                }
+            });
+        } else {
+            res.status(401).json({
+                success: false,
+                error: 'Credenciales incorrectas'
+            });
+        }
+    } catch (error) {
+        console.error('Error during login:', error);
+        res.status(500).json({
+            success: false,
+            error: 'Error en el servidor durante el login'
+        });
+    }
+});
 
 // Get all lotes (batches)
 app.get('/api/lotes', async (req, res) => {
