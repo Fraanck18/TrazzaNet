@@ -1,0 +1,169 @@
+/* Importar variables y estilos base del dashboard para consistencia */
+@import url('dashboard.css');
+
+/* ===================================
+   Layout General
+   =================================== */
+.detail-grid-section {
+    padding: var(--spacing-lg);
+    display: grid;
+    gap: var(--spacing-lg);
+    grid-template-columns: 2fr 1fr; /* Two main columns: Chart and Info */
+    animation: fadeIn 0.5s ease backwards;
+}
+
+.detail-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.chart-card {
+    grid-column: span 2; /* Chart initially spans both columns on large screens */
+    min-height: 450px;
+}
+
+.info-card {
+    grid-row: span 1;
+}
+
+.log-card {
+    grid-row: span 1;
+}
+
+/* ===================================
+   Header y Botón de Regreso
+   =================================== */
+.back-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-weight: 600;
+    transition: all var(--transition-base);
+}
+
+.back-btn:hover {
+    background: var(--primary-green-dark);
+    box-shadow: var(--shadow-glow);
+}
+
+.back-btn svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    stroke-width: 2.5;
+}
+
+/* ===================================
+   Detalles del Lote (Lote Details)
+   =================================== */
+.lote-details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--spacing-xs) 0;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.detail-value {
+    color: var(--text-primary);
+    font-weight: 500;
+    text-align: right;
+}
+
+/* Estado de Auditoría */
+#detailResultadoAuditoria.pass {
+    color: var(--primary-green-light);
+    font-weight: 700;
+}
+
+#detailResultadoAuditoria.fail {
+    color: var(--accent-red);
+    font-weight: 700;
+}
+
+
+/* ===================================
+   Log de Desvíos (Deviation Log)
+   =================================== */
+.deviation-log {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: var(--spacing-sm);
+}
+
+.log-item {
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    border-left: 3px solid;
+}
+
+.log-item.pass {
+    background: rgba(16, 185, 129, 0.1); /* primary-green-glow lighter */
+    border-left-color: var(--primary-green);
+    color: var(--text-primary);
+}
+
+.log-item.fail {
+    background: rgba(239, 68, 68, 0.1); /* accent-red lighter */
+    border-left-color: var(--accent-red);
+    color: var(--text-primary);
+}
+
+.log-item svg {
+    margin-right: var(--spacing-xs);
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+}
+
+/* ===================================
+   Gráfico (Chart)
+   =================================== */
+.chart-container {
+    padding: var(--spacing-sm);
+    position: relative;
+    height: 100%;
+}
+
+/* Ajustes Responsivos */
+@media (max-width: 1024px) {
+    .detail-grid-section {
+        grid-template-columns: 1fr; /* Single column on tablets/mobile */
+    }
+
+    .chart-card.wide {
+        grid-column: span 1;
+        min-height: 350px;
+    }
+}
